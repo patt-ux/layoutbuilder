@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>DragonAdmin</title>
+  <link rel="stylesheet" href="src/css/bootstrap.min.css">
+  <script src="src/js/jquery.js"></script>
+  <script src="src/js/jquery-ui.min.js"></script>
+  <script src="src/js/bootstrap.js"></script>
+  <style>
+    body{background:#cfcfcf}
+    .droppable{min-height: 50px;}
+    #droppable{min-height:200px;}
+    .m20{margin:20px;}
+
+    .layout-builder .tab-content{
+      padding:5px 20px;
+      background: #efefef;
+    }
+
+    i.lo{
+      width:76px;
+      height:66px;
+      display: inline-block;
+      border:1px solid #eee;
+      background: url(src/images/layout/layout-1-1.png) 0px 0px no-repeat transparent cover;
+      margin-right:5px;
+    }
+    i.lo-11{
+      background-image: url(src/images/layout/layout-1-1.png);
+    }
+    i.lo-12{
+      background-image: url(src/images/layout/layout-1-2.png);
+    }
+    i.lo-13{
+      background-image: url(src/images/layout/layout-1-3.png);
+    }
+    i.lo-14{
+      background-image: url(src/images/layout/layout-1-4.png);
+    }
+    i.lo-15{
+      background-image: url(src/images/layout/layout-1-5.png);
+    }
+    i.lo-23{
+      background-image: url(src/images/layout/layout-2-3.png);
+    }
+    i.lo-25{
+      background-image: url(src/images/layout/layout-2-5.png);
+    }
+    i.lo-34{
+      background-image: url(src/images/layout/layout-3-4.png);
+    }
+    i.lo-35{
+      background-image: url(src/images/layout/layout-3-5.png);
+    }
+    i.lo-45{
+      background-image: url(src/images/layout/layout-4-5.png);
+    }
+    i.lo-cs{
+      background-image: url(src/images/layout/layout-color-sec.png);
+    }
+    i.lo-gr{
+      background-image: url(src/images/layout/layout-grid-row.png);
+    }
+    /* Media elements */
+    i.lo-mals{
+      background-image: url(src/images/media/media-a-ls.png);
+    }
+    i.lo-masl{
+      background-image: url(src/images/media/media-a-sl.png);
+    }
+    i.lo-mesl{
+      background-image: url(src/images/media/media-e-sl.png);
+    }
+    i.lo-mfesl{
+      background-image: url(src/images/media/media-f-e-sl.png);
+    }
+    i.lo-mfisl{
+      background-image: url(src/images/media/media-f-i-sl.png);
+    }
+    i.lo-mfsl{
+      background-image: url(src/images/media/media-f-sl.png);
+    }
+    i.lo-mgl{
+      background-image: url(src/images/media/media-gl.png);
+    }
+    i.lo-mgm{
+      background-image: url(src/images/media/media-g-m.png);
+    }
+    i.lo-mimg{
+      background-image: url(src/images/media/media-img.png);
+    }
+    i.lo-miwh{
+      background-image: url(src/images/media/media-i-w-h.png);
+    }
+    i.lo-mmg{
+      background-image: url(src/images/media/media-m-g.png);
+    }
+    i.lo-mple{
+      background-image: url(src/images/media/media-p-l-e.png);
+    }
+    i.lo-vid{
+      background-image: url(src/images/media/media-video.png);
+    }
+  </style>
+  <script>
+  var layoutItems = {
+    lo11: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 1/1 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo12: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 1/2 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo13: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 1/3 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo14: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 1/4 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo15: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 1/5 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo23: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 2/3 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo25: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 2/5 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo34: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 3/4 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo35: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 3/5 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lo45: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout 4/5 <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    locs: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout Color Section <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    logr: "<div class=\"panel-droppable\" data-property=\"\"><div class=\"panel-header\">Layout Grid Row <a class=\"delete\">Delete</a><a class=\"settings\">Settings</a></div><div class=\"panel-body droppable\"></div></div>",
+    lomals: "<div>Media Advanced Layerslider</div>",
+    lomasl: "<div>Media Accordion Slider</div>",
+    lomesl: "<div>Easy Slider</div>",
+    lomfesl: "<div>Fullwidth Easy Slider</div>",
+    lomfisl: "<div>Featured Image Slider</div>",
+    lomfsl: "<div>Fullscreen Slider</div>",
+    lomgl: "<div>Galler</div>",
+    lomgm: "<div>Google Map</div>",
+    lomimg: "<div>Image</div>",
+    lomiwh: "<div>Image with Hotspots</div>",
+    lommg: "<div>Masonry Gallery</div>",
+    lomple: "<div>Partner/Logo Element</div>",
+    lovid: "<div>Video</div>"
+  };
+
+  /*
+  <section class=\"section white-section\">
+    <div class=\"col-md-6\">
+      <div class=\"special-header\">
+        Header One
+      </div>
+      <div class=\"text-block\">
+      </div>
+    </div>
+    <div class=\"col-md-6\">
+      <div class=\"special-header\">
+        Header Two
+      </div>
+      <div class=\"image-wrap\">
+        <img src=\"images/img-about-3.jpg\"/>
+      </div>      
+    </div>
+  </section>
+  */
+  var htmlContent = "<section class=\"section white-section\">";
+    htmlContent += "<div class=\"col-md-6\">";
+    htmlContent += "<div class=\"special-header\">";
+    htmlContent += "Header One";
+    htmlContent += "</div>";
+    htmlContent += "<div class=\"text-block\">";
+    htmlContent += "</div>";
+    htmlContent += "</div>";
+    htmlContent += "<div class=\"col-md-6\">";
+    htmlContent += "<div class=\"special-header\">";
+    htmlContent += "Header Two";
+    htmlContent += "</div>";
+    htmlContent += "<div class=\"image-wrap\">";
+    htmlContent += "<img src=\"images/img-about-3.jpg\"/>";
+    htmlContent += "</div>";
+    htmlContent += "<section class=\"section alt-section\"><div class=\"col-md-12\">Futons</div></section></div>";
+    htmlContent += "</section>";
+
+    /*function renderHTML(){
+      xmlDoc = $.parseXML( htmlContent ),
+      $xml = $( xmlDoc ),
+      $section = $xml.find( "section" );
+      
+      $( "#droppable" ).append( $section.children() );
+    }*/
+
+  $( function() {
+    $( ".draggable" ).draggable({ revert: "valid" });
+    initDrops();
+    //renderHTML();
+  } );
+
+  function initDrops(){
+    $( ".droppable" ).droppable({
+      greedy: true,
+      classes: {
+        "ui-droppable-active": "ui-state-active",
+        "ui-droppable-hover": "ui-state-hover"
+      },
+      drop: function( event, ui ) {
+        var x = layoutItems[$(event.toElement).attr('id')];
+        $( this ).append(x);
+
+        $(".settings").click(
+          function(){
+            console.log($(this).parent().parent().attr('data-property'));
+            //show a popup to configure content etc..
+          }
+        );
+        $(".delete").click(
+          function(){
+            $(this).parent().parent().remove();
+          }
+        );
+        initDrops();//reinit any new drop nodes
+      }
+    });
+  }
+  </script>
+</head>
+<body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12" style="padding-top:50px">
+          <section class="panel panel-default layout-builder">
+            <div class="panel-body">
+              <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Layout Elements</a></li>
+                <li><a data-toggle="tab" href="#menu1">Content Elements</a></li>
+                <li><a data-toggle="tab" href="#menu2">Media Elements</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">                  
+                  <i id="lo11" class="draggable lo lo-11"></i>                 
+                  <i id="lo12" class="draggable lo lo-12"></i>                 
+                  <i id="lo13" class="draggable lo lo-13"></i>                 
+                  <i id="lo14" class="draggable lo lo-14"></i>                 
+                  <i id="lo15" class="draggable lo lo-15"></i>                  
+                  <i id="lo23" class="draggable lo lo-23"></i>                  
+                  <i id="lo25" class="draggable lo lo-25"></i>                  
+                  <i id="lo34" class="draggable lo lo-34"></i>                  
+                  <i id="lo35" class="draggable lo lo-35"></i>                  
+                  <i id="lo45" class="draggable lo lo-45"></i>                  
+                  <i id="locs" class="draggable lo lo-cs"></i>                  
+                  <i id="logr" class="draggable lo lo-gr"></i> 
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                  <i id="lomals" class="draggable lo lo-mals"></i>
+                  <i id="lomasl" class="draggable lo lo-masl"></i>
+                  <i id="lomesl" class="draggable lo lo-mesl"></i>
+                  <i id="lomfesl" class="draggable lo lo-mfesl"></i>
+                  <i id="lomfisl" class="draggable lo lo-mfisl"></i>
+                  <i id="lomfsl" class="draggable lo lo-mfsl"></i>
+                  <i id="lomgl" class="draggable lo lo-mgl"></i>
+                  <i id="lomgm" class="draggable lo lo-mgm"></i>
+                  <i id="lomimg" class="draggable lo lo-mimg"></i>
+                  <i id="lomiwh" class="draggable lo lo-miwh"></i>
+                  <i id="lommg" class="draggable lo lo-mmg"></i>
+                  <i id="lomple" class="draggable lo lo-mple"></i>
+                  <i id="lovid" class="draggable lo lo-vid"></i>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default m20">
+              <div id="droppable" class="panel-body droppable">
+              </div>
+            </div>
+          </section>
+ 
+
+
+        </div>
+      </div>
+    </div>
+</body>
+</html>
